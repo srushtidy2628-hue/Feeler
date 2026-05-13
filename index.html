@@ -1,81 +1,228 @@
-<!DOCTYPE html> html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Muse - Express & Understand Your Emotions</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f4f6f8;
-      color: #333;
-    }
-    header {
-      background: #6c63ff;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    section {
-      padding: 20px;
-      max-width: 800px;
-      margin: auto;
-    }
-    .card {
-      background: white;
-      padding: 15px;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    textarea {
-      width: 100%;
-      height: 100px;
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    button {
-      background: #6c63ff;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    footer {
-      text-align: center;
-      padding: 15px;
-      font-size: 12px;
-      color: gray;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feeler</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f4f7ff;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        .app-container {
+            max-width: 430px;
+            margin: auto;
+            min-height: 100vh;
+            background: white;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0,0,0,0.08);
+        }
+
+        header {
+            background: linear-gradient(135deg, #6c63ff, #5b52ff);
+            color: white;
+            padding: 60px 25px 40px;
+            border-bottom-left-radius: 35px;
+            border-bottom-right-radius: 35px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 22px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #5b52ff;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .mood-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .mood {
+            width: 60px;
+            height: 60px;
+            border-radius: 18px;
+            background: #f4f4ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .mood:hover {
+            transform: translateY(-5px);
+            background: #e7e5ff;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 18px;
+            background: #6c63ff;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #554bff;
+            transform: scale(1.02);
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .quote {
+            font-style: italic;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .bottom-nav {
+            position: sticky;
+            bottom: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-item {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .nav-item span {
+            display: block;
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
-<body><header>
-  <h1>Muse</h1>
-  <p>A safe space to express and understand your emotions</p>
-</header><section>
-  <div class="card">
-    <h2>Share Your Feelings (Anonymous)</h2>
-    <textarea placeholder="Write what you're feeling..."></textarea>
-    <br>
-<a href="https://docs.google.com/forms/d/1iAj-2-rdSSvj9I0Ew6mqlZa3vcAmqtEyamVT1X0U5Xc/viewform" target="_blank">
-    <button>Submit</button>
-</a>
-  </div>  <div class="card">
-    <h2>Why Do We Feel This Way?</h2>
-    <p>Read simple explanations about emotions, overthinking, anxiety, and more.</p>
-    <ul>
-      <li>Why overthinking happens</li>
-      <li>Why we feel lonely</li>
-      <li>Understanding anxiety</li>
-    </ul>
-  </div>  <div class="card">
-    <h2>Important Note</h2>
-    <p>This platform is for emotional expression and awareness only. It is not a replacement for professional mental health support.</p>
-  </div>
-</section><footer>
-  © 2026 Muse | Built with purpose
-</footer></body>
+<body>
+
+<div class="app-container">
+
+    <header>
+        <h1>Feeler</h1>
+        <p>Feel safe. Feel heard. Feel understood.</p>
+    </header>
+
+    <div class="main-content">
+
+        <div class="card">
+            <h2>How are you feeling today?</h2>
+            <p>Select your mood and express yourself safely.</p>
+
+            <div class="mood-section">
+                <div class="mood">😊</div>
+                <div class="mood">😔</div>
+                <div class="mood">😡</div>
+                <div class="mood">😴</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Daily Support</h2>
+            <p class="quote">“Your feelings are valid, even when they are difficult to explain.”</p>
+        </div>
+
+        <div class="card">
+            <h2>Anonymous Feedback</h2>
+            <p>Share your emotions privately through our support form.</p>
+
+            <a href="YOUR_GOOGLE_FORM_LINK_HERE" target="_blank">
+                <button>Share Feelings</button>
+            </a>
+        </div>
+
+    </div>
+
+    <div class="bottom-nav">
+        <div class="nav-item">
+            <span>🏠</span>
+            Home
+        </div>
+
+        <div class="nav-item">
+            <span>💬</span>
+            Chat
+        </div>
+
+        <div class="nav-item">
+            <span>❤️</span>
+            Care
+        </div>
+
+        <div class="nav-item">
+            <span>⚙️</span>
+            Settings
+        </div>
+    </div>
+
+    <footer>
+        © 2026 Feeler — Emotional Wellness Platform
+    </footer>
+
+</div>
+
+</body>
 </html>
+Updated website to Feeler mobile app design
