@@ -69,6 +69,7 @@ async function sendMessage() {
     const data = await response.json();
 
     const botReply = data.reply;
+
     chatBox.innerHTML += `<p><strong>Feeler AI:</strong> ${botReply}</p>`;
 
 }
