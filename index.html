@@ -294,7 +294,41 @@ async function sendMessage() {
     </footer>
 
 </div>
+<script>
 
+async function sendMessage() {
+
+  const input = document.getElementById("user-input");
+  const chatBox = document.getElementById("chat-box");
+
+  const userMessage = input.value;
+
+  if(userMessage.trim() === "") return;
+
+  chatBox.innerHTML += `<p><strong>You:</strong> ${userMessage}</p>`;
+
+  input.value = "";
+
+  const response = await fetch("/api/chat", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      message: userMessage,
+    }),
+  });
+
+  const data = await response.json();
+
+  const botReply =
+    data.candidates?.[0]?.content?.parts?.[0]?.text ||
+    "No response from AI";
+
+  chatBox.innerHTML += `<p><strong>Feeler AI:</strong> ${botReply}</p>`;
+}
+
+</script>
 </body>
 </html>
 Updated website to Feeler mobile app design
