@@ -286,7 +286,8 @@ async function sendMessage() {
     </footer>
 
 </div>
-<script>
+
+  <script>
 
 async function sendMessage() {
 
@@ -304,20 +305,19 @@ async function sendMessage() {
   const response = await fetch("/api/chat", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      message: userMessage,
-    }),
+      message: userMessage
+    })
   });
 
   const data = await response.json();
 
-  const botReply =
-    data.candidates?.[0]?.content?.parts?.[0]?.text ||
-    "No response from AI";
+  chatBox.innerHTML += `
+    <p><strong>Feeler AI:</strong> ${data.reply}</p>
+  `;
 
-  chatBox.innerHTML += `<p><strong>Feeler AI:</strong> ${botReply}</p>`;
 }
 
 </script>
