@@ -32,45 +32,38 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-<script>
+
+    
+    <script>
 
 async function sendMessage() {
 
-    const input = document.getElementById("user-input");
-    const chatBox = document.getElementById("chat-box");
+  const input = document.getElementById("user-input");
+  const chatBox = document.getElementById("chat-box");
 
-    const userMessage = input.value;
+  const userMessage = input.value;
 
-    if(userMessage.trim() === "") return;
+  if(userMessage.trim() === "") return;
 
-    chatBox.innerHTML += `<p><strong>You:</strong> ${userMessage}</p>`;
+  chatBox.innerHTML += `<p><strong>You:</strong> ${userMessage}</p>`;
 
-    input.value = "";
+  input.value = "";
 
-    const response = await fetch( "/api/chat",
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                contents: [
-                    {
-                        parts: [
-                            {
-                                text: `You are Feeler AI, a kind emotional wellness assistant. User says: ${userMessage}`
-                            }
-                        ]
-                    }
-                ]
-            })
-        }
-    );
+  const response = await fetch("/api/chat", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      message: userMessage
+    })
+  });
 
-    const data = await response.json();
+  const data = await response.json();
 
-    const botReply = data.reply;
-
-    chatBox.innerHTML += `<p><strong>Feeler AI:</strong> ${botReply}</p>`;
+  chatBox.innerHTML += `
+    <p><strong>Feeler AI:</strong> ${data.reply}</p>
+  `;
 
 }
 
