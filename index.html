@@ -307,5 +307,46 @@ if(message.includes("tired")) {
 }
 
 </script>
+<script>
+
+function sendMessage() {
+
+  const input = document.getElementById("user-input");
+  const chatBox = document.getElementById("chat-box");
+
+  const message = input.value;
+
+  if(message.trim() === "") return;
+
+  chatBox.innerHTML += `
+    <p><strong>You:</strong> ${message}</p>
+  `;
+
+  let reply = "I'm here for you 💜";
+
+  if(message.includes("sad")) {
+    reply = "I'm sorry you're feeling sad.";
+  }
+
+  if(message.includes("happy")) {
+    reply = "That’s wonderful 🌸";
+  }
+
+  if(message.includes("stress")) {
+    reply = "Try taking a small break and breathe slowly.";
+  }
+
+  setTimeout(() => {
+
+    chatBox.innerHTML += `
+      <p><strong>Feeler:</strong> ${reply}</p>
+    `;
+
+  }, 700);
+
+  input.value = "";
+}
+
+</script>
 </body>
 </html>
