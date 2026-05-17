@@ -250,7 +250,17 @@ function sendMessage() {
   if(message.includes("stress")) {
     reply = "Try taking a small break and breathe slowly.";
   }
+if(message.includes("lonely")) {
+  reply = "You are not alone 💜";
+}
 
+if(message.includes("anxious")) {
+  reply = "Try slowing down and taking deep breaths.";
+}
+
+if(message.includes("tired")) {
+  reply = "Rest is important 🌙";
+}
   setTimeout(() => {
 
     chatBox.innerHTML += `
