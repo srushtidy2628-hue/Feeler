@@ -272,25 +272,50 @@ function sendMessage() {
   `;
 
   let reply = "I'm here for you 💜";
+let reply = "Tell me more about how you're feeling 💜";
 
-  if(message.includes("sad")) {
-    reply = "I'm sorry you're feeling sad.";
-  }
+if(message.includes("sad")) {
+  reply = "I'm sorry you're feeling sad. Want to talk more about it?";
+}
 
-  if(message.includes("happy")) {
-    reply = "That’s wonderful 🌸";
-  }
+else if(message.includes("happy")) {
+  reply = "That’s amazing 🌸 What made your day better?";
+}
 
-  if(message.includes("stress")) {
-    reply = "Try taking a small break and breathe slowly.";
-  }
-if(message.includes("lonely")) {
+else if(message.includes("stress")) {
+  reply = "Stress can feel heavy. Try taking things one step at a time.";
+}
+
+else if(message.includes("lonely")) {
   reply = "You are not alone 💜";
 }
 
-if(message.includes("anxious")) {
-  reply = "Try slowing down and taking deep breaths.";
+else if(message.includes("angry")) {
+  reply = "It’s okay to feel angry sometimes.";
 }
+
+else if(message.includes("tired")) {
+  reply = "You deserve rest 🌙";
+}
+
+else if(message.includes("anxious")) {
+  reply = "Take a deep breath. You’re safe right now.";
+}
+
+else if(message.includes("cry")) {
+  reply = "Crying can help release emotions sometimes.";
+}
+
+else if(message.includes("love")) {
+  reply = "Love can be beautiful and complicated.";
+}
+
+else if(message.includes("friend")) {
+  reply = "Good friends can make hard days easier.";
+}
+
+
+
 
 if(message.includes("tired")) {
   reply = "Rest is important 🌙";
