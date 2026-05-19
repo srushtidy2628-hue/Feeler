@@ -477,9 +477,113 @@ function sendMessage() {
   <button onclick="shuffleGrounding()">Shuffle Grounding</button>
 </section>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script
+function addHabit() {
+  const input = document.getElementById("habitInput");
+  const habit = input.value.trim();
 
-<script>
+  if (habit === "") return;
+
+  habits.push(habit);
+  input.value = "";
+
+  renderHabits();
+  updateChart();
+}
+
+function renderHabits() {
+  const list = document.getElementById("habitList");
+  list.innerHTML = "";
+
+  habits.forEach((habit, index) => {
+    const habitItem = document.createElement("div");
+    habitItem.className = "habit-item";
+
+    habitItem.innerHTML = `
+      <label>
+        <input type="checkbox" onchange="toggleHabit(${index})">
+        ${habit}
+      </label>
+    `;
+
+    list.appendChild(habitItem);
+  });
+}
+
+function toggleHabit(index) {
+  const today = new Date().toLocaleDateString();
+
+  if (!dailyProgress[today]) {
+    dailyProgress[today] = 0;
+  }
+
+  dailyProgress[today]++;
+
+  updateChart();
+  openJournal(today);
+}
+
+function updateChart() {
+  const labels = Object.keys(dailyProgress);
+  const values = Object.values(dailyProgress);
+
+  if (window.myChart) {
+    window.myChart.destroy();
+  }
+
+  const ctx = document.getElementById("habitChart").getContext("2d");
+
+  window.myChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "Habit Progress",
+        data: values
+      }]
+    }
+  });
+}
+
+function openJournal(date) {
+  selectedDate = date;
+
+  document.getElementById("journalBox").style.display = "block";
+  document.getElementById("journalDate").innerText =
+    "Journal for " + date;
+
+  const todoList = document.getElementById("todoList");
+
+  todoList.innerHTML = habits.map(habit => `
+    <label>
+      <input type="checkbox"> ${habit}
+    </label><br>
+  `).join("");
+}
+
+function saveJournal() {
+  alert("Journal Saved 💜");
+}
+
+const groundingMethods = [
+  "Take 5 deep breaths slowly 🌿",
+  "Drink a glass of water 💧",
+  "Name 5 things you can see 👀",
+  "Stretch your body gently 🧘",
+  "Listen to calming music 🎵",
+  "Write your feelings in a journal ✍️"
+];
+
+function shuffleGrounding() {
+  const random =
+    groundingMethods[
+      Math.floor(Math.random() * groundingMethods.length)
+    ];
+
+  document.getElementById("groundingCard").innerText = random;
+} src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
 let habits = [];
 let dailyProgress = {};
 let selectedDate = "";
