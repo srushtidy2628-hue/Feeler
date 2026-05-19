@@ -439,5 +439,249 @@ function sendMessage() {
 }
 
 </script>
+<!-- HABIT TRACKER -->
+<section class="habit-section">
+  <h2>Habit Tracker</h2>
+
+  <div class="habit-add">
+    <input type="text" id="habitInput" placeholder="Add your habit..." />
+    <button onclick="addHabit()">Add Habit</button>
+  </div>
+
+  <div id="habitList"></div>
+
+  <canvas id="habitChart"></canvas>
+
+  <div id="journalBox" class="journal-box" style="display:none;">
+    <h3 id="journalDate"></h3>
+
+    <div id="todoList"></div>
+
+    <textarea
+      id="feelingText"
+      placeholder="What did you feel today?"
+    ></textarea>
+
+    <button onclick="saveJournal()">Save Journal</button>
+  </div>
+</section>
+
+<!-- GROUNDING SECTION -->
+<section class="grounding-section">
+  <h2>How will you ground today?</h2>
+
+  <div id="groundingCard" class="grounding-card">
+    Take 5 deep breaths slowly 🌿
+  </div>
+
+  <button onclick="shuffleGrounding()">Shuffle Grounding</button>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+let habits = [];
+let selectedDate = "";
+
+const groundingMethods = [
+  "Take 5 deep breaths slowly 🌿",
+  "Drink one glass of water 💧",
+  "Write 3 things you survived today ✍️",
+  "Sit quietly for 2 minutes 🌙",
+  "Stretch your body slowly 🧘",
+  "Name 5 things you can see 👀",
+  "Listen to calming music 🎵",
+  "Step outside for fresh air 🌤️",
+  "Write one kind thing about yourself 💜",
+  "Close your eyes and breathe slowly 🌸"
+];
+
+function addHabit() {
+  const input = document.getElementById("habitInput");
+
+  if (input.value.trim() === "") return;
+
+  habits.push({
+    name: input.value,
+    completed: false
+  });
+
+  input.value = "";
+
+  renderHabits();
+  updateChart();
+}
+
+function renderHabits() {
+  const habitList = document.getElementById("habitList");
+
+  habitList.innerHTML = "";
+
+  habits.forEach((habit, index) => {
+    habitList.innerHTML += `
+      <div class="habit-item">
+        <label>
+          <input type="checkbox"
+            onchange="toggleHabit(${index})"
+            ${habit.completed ? "checked" : ""}
+          />
+          ${habit.name}
+        </label>
+      </div>
+    `;
+  });
+}
+
+function toggleHabit(index) {
+  habits[index].completed = !habits[index].completed;
+  updateChart();
+}
+
+const ctx = document.getElementById('habitChart');
+
+const chart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    datasets: [{
+      label: 'Habit Progress',
+      data: [2, 4, 3, 5, 6, 2, 4],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    responsive: true,
+    onClick: (e, elements) => {
+      if(elements.length > 0){
+        const index = elements[0].index;
+        openJournal(chart.data.labels[index]);
+      }
+    }
+  }
+});
+
+function updateChart() {
+  const completedCount = habits.filter(h => h.completed).length;
+
+  chart.data.datasets[0].data = [
+    completedCount,
+    completedCount + 1,
+    completedCount,
+    completedCount + 2,
+    completedCount + 1,
+    completedCount,
+    completedCount + 3
+  ];
+
+  chart.update();
+}
+
+function openJournal(date) {
+  selectedDate = date;
+
+  document.getElementById("journalBox").style.display = "block";
+
+  document.getElementById("journalDate").innerText =
+    "Journal - " + date;
+
+  const todoList = document.getElementById("todoList");
+
+  todoList.innerHTML = "";
+
+  habits.forEach((habit, index) => {
+    todoList.innerHTML += `
+      <div class="todo-item">
+        <input type="checkbox"
+          ${habit.completed ? "checked" : ""}
+        />
+        ${habit.name}
+      </div>
+    `;
+  });
+}
+
+function saveJournal() {
+  alert("Journal Saved 💜");
+}
+
+function shuffleGrounding() {
+  const random =
+    groundingMethods[
+      Math.floor(Math.random() * groundingMethods.length)
+    ];
+
+  document.getElementById("groundingCard").innerText = random;
+}
+</script>
+
+<style>
+.habit-section,
+.grounding-section{
+  background:white;
+  padding:20px;
+  border-radius:20px;
+  margin:25px;
+}
+
+.habit-add{
+  display:flex;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+.habit-add input{
+  flex:1;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #ccc;
+}
+
+.habit-add button,
+.grounding-section button{
+  padding:12px 18px;
+  border:none;
+  border-radius:12px;
+  background:#6c63ff;
+  color:white;
+  font-weight:bold;
+}
+
+.habit-item{
+  background:#f3f0ff;
+  padding:12px;
+  border-radius:12px;
+  margin-bottom:10px;
+}
+
+.journal-box{
+  margin-top:20px;
+  background:#f8f8ff;
+  padding:15px;
+  border-radius:15px;
+}
+
+.todo-item{
+  margin-bottom:10px;
+}
+
+textarea{
+  width:100%;
+  height:120px;
+  margin-top:15px;
+  border-radius:12px;
+  border:1px solid #ccc;
+  padding:10px;
+}
+
+.grounding-card{
+  background:#f3f0ff;
+  padding:25px;
+  border-radius:18px;
+  margin-top:20px;
+  margin-bottom:20px;
+  text-align:center;
+  font-size:18px;
+}
+</style>
 </body>
 </html>
